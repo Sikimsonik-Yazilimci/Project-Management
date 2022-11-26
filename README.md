@@ -1,5 +1,4 @@
 
-
 This is the repository of a project aimed at developing a kids math game using python. 
 It contains all the documents and codes regarding the regarding the development of the game.
 
