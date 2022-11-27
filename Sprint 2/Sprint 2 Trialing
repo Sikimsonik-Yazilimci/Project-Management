@@ -1,0 +1,148 @@
+
+# Question Display Trialing
+
+# Option 1
+"""
+Points: 0
+Q1. 2 * 3 = 
+"""
+
+
+# Option 2
+"""
+Question 1.           Points: 0
+
+2 * 3 = 
+"""
+
+
+# Option 3
+"""
+Points: 0
+Question 1.
+
+2 * 3 = 
+"""
+
+
+# Option 4
+"""
+Question 1.           Points: 0
+
+            2 * 3 = 
+"""
+
+
+# Option 5
+"""
+Points: 0
+
+Q1. 2 * 3 = 
+"""
+
+
+
+# Question Display Trialing
+
+# Option 1
+"""
+-------------------- 
+  Easy game length
+--------------------
+1: Short Game
+2: Long  Game
+--------------------
+> Enter a choice: 
+"""
+
+
+# Option 2
+"""
+-------------------- 
+ Easy game length
+--------------------
+1: Short Game (10 Q)
+2: Long  Game (20 Q)
+--------------------
+> Enter a choice: 
+"""
+
+
+# Option 3
+"""
+----------------------------
+      Easy game length
+----------------------------
+1: Short Game (10 Questions)
+2: Long  Game (20 Questions)
+----------------------------
+> Enter a choice: 
+"""
+
+
+# Option 4
+"""
+Question 1.           Points: 0
+
+            2 * 3 = 
+"""
+
+
+
+# Play Game Menu Trialing
+
+# Option 1
+"""
+-------------------- 
+  Choose game level
+--------------------
+1: Easy game
+2: Hard game
+3: Mixed game
+4: Back to menu
+5: Quit
+--------------------
+> Enter a choice: 
+"""
+
+# Option 2
+"""
+-------------------- 
+  Choose game level
+--------------------
+A: Easy game
+B: Hard game
+C: Mixed game
+D: Back to menu
+E: Quit
+--------------------
+> Enter a choice: 
+"""
+
+# Option 3
+"""
+-------------------- 
+  Choose game level
+--------------------
+A: Easy game
+S: Hard game
+D: Mixed game
+F: Back to menu
+G: Quit
+--------------------
+> Enter a choice:  
+"""
+
+# Option 4
+"""
+==================== 
+  Choose game level
+====================
+1: Easy game
+2: Hard game
+3: Mixed game
+4: Back to menu
+5: Quit
+====================
+> Enter a choice: 
+"""
