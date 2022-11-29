@@ -1,0 +1,151 @@
+
+# Data display page trialing
+
+
+# Option 1:
+"""
+-------------------------------------------
+        Easy/Hard/Mixed Game Data
+-------------------------------------------
+Total time spent playing:             100s
+Average time spent per question:      2s
+
+No. of questions asked:               50
+No. of questions correctly answered:  40
+
+Percentage student answers correctly: 80%
+-------------------------------------------
+"""
+
+
+# Option 2:
+"""
+----------------------------------
+    Easy/Hard/Mixed Game Data
+----------------------------------
+Total play time:     100s
+Ave. answer time:    2s
+
+Questions answered:  50 questions
+Correctly answered:  40 questions
+
+Correct answer rate: 80%
+----------------------------------
+"""
+
+
+# Option 3:
+"""
+--------------------------------
+    Easy/Hard/Mixed Game Data
+--------------------------------
+100s played
+2s per question
+
+50 questions answered
+40 questions answered correctly
+
+80% of answers correct
+--------------------------------
+"""
+
+
+# Option 4:
+"""
+-------------------------------------------
+        Easy/Hard/Mixed Game Data
+-------------------------------------------
+Total time spent playing:             100s
+Average time spent per question:      2s
+No. of questions asked:               50
+No. of questions correctly answered:  40
+Percentage student answers correctly: 80%
+-------------------------------------------
+"""
+
+
+# Option 5:
+"""
+-------------------------------------------
+        Easy/Hard/Mixed Game Data
+-------------------------------------------
+Total time spent playing:
+100s spent playing
+
+Average time spent per question:
+2s to answer a question
+
+No. of questions asked:
+50 questions asked
+
+No. of questions correctly answered:
+40 questions answered correctly
+
+Percentage student answers correctly:
+80% of answers correct
+-------------------------------------------
+"""
+
+
+
+#  Teacher's Menu (Interface) trialing
+
+
+# Option 1:
+"""
+---------------------- 
+    Teacher's Menu
+----------------------
+1: Easy game data
+2: Hard game data
+3: Mixed game data
+4: No. of wrong answers
+5: Main menu
+----------------------
+> Enter a choice: 
+"""
+
+
+# Option 2:
+"""
+---------------------- 
+    Teacher's Menu
+----------------------
+A: Easy game data
+S: Hard game data
+D: Mixed game data
+F: No. of wrong answers
+G: Main menu
+----------------------
+> Enter a choice: 
+"""
+
+
+# Option 3
+"""
+====================== 
+    Teacher's Menu
+====================== 
+1: Easy game data
+2: Hard game data
+3: Mixed game data
+4: No. of wrong answers
+5: Main menu
+====================== 
+> Enter a choice: 
+"""
+
+
+# Option 4:
+"""
+---------------------- 
+    Teacher's Menu
+----------------------
+A: Easy game data
+B: Hard game data
+C: Mixed game data
+D: No. of wrong answers
+E: Main menu
+----------------------
+> Enter a choice: 
+"""
