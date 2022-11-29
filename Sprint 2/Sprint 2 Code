@@ -5,6 +5,7 @@ import random
 # creating the variables/lists/dictionaries
 
 menu_options = ['1', '2', '3', '4', '5']  # expected inputs in menus
+game_length_menu_options = ['1', '2']
 
 game_choice = ["Short Game (10 Q)",
                "Long  Game (20 Q)"]
@@ -251,7 +252,7 @@ def easy_game():
     easy_game_input = 0
     # While loop takes user to the game they want to play,
     # and gives an error message if input is invalid
-    while easy_game_input not in menu_options:
+    while easy_game_input not in game_length_menu_options:
         easy_game_input = str(input("> Enter a choice: ")).strip()
 
         easy_game_record[easy_game_count] = []
@@ -384,7 +385,7 @@ def easy_game():
     easy_game_input_2 = 0
     # While loop takes user to the menu page they want to go to
     # and gives an error message is input is invalid
-    while easy_game_input_2 not in menu_options:
+    while easy_game_input_2 != '1' or '2':
         easy_game_input_2 = str(input("> Enter a choice: ")).strip()
 
         # if input is 1, then go to the play_game menu
@@ -424,7 +425,7 @@ def hard_game():
     hard_game_input = 0
     # While loop takes user to the game they want to play,
     # and gives an error message if input is invalid
-    while hard_game_input not in menu_options:
+    while hard_game_input not in game_length_menu_options:
         hard_game_input = str(input("> Enter a choice: ")).strip()
 
         hard_game_record[hard_game_count] = []
@@ -556,7 +557,7 @@ def hard_game():
     hard_game_input_2 = 0
     # While loop takes user to the menu page they want to go to
     # and gives an error message is input is invalid
-    while hard_game_input_2 not in menu_options:
+    while hard_game_input_2 != '1' or '2':
         hard_game_input_2 = str(input("> Enter a choice: ")).strip()
 
         # if input is 1, then go to the play_game menu
@@ -596,7 +597,7 @@ def mixed_game():
     mixed_game_input = 0
     # While loop takes user to the game they want to play,
     # and gives an error message if input is invalid
-    while mixed_game_input not in menu_options:
+    while mixed_game_input not in game_length_menu_options:
         mixed_game_input = str(input("> Enter a choice: ")).strip()
 
         mixed_game_record[mixed_game_count] = []
@@ -728,7 +729,7 @@ def mixed_game():
     mixed_game_input_2 = 0
     # While loop takes user to the menu page they want to go to
     # and gives an error message is input is invalid
-    while mixed_game_input_2 not in menu_options:
+    while mixed_game_input_2 != '1' or '2':
         mixed_game_input_2 = str(input("> Enter a choice: ")).strip()
 
         # if input is 1, then go to the play_game menu
