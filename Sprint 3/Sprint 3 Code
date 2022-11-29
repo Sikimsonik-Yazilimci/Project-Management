@@ -74,8 +74,14 @@ def game_description():
                   "         - Mixed game (1-10 multiplication questions)",
                   "    - In each difficulty level you can play a short game "
                   "that has 10 questions, or a long game that has 20 questions",
-                  "    - You will earn points depending on the number of "
-                  "questions you answer correctly",
+                  "    - You will earn points from every correctly answered question:",
+                  "         - Easy  game: 50 points",
+                  "         - Hard  game: 100 points",
+                  "         - Mixed game: 75 points",
+                  "    - You will lose points if you answer incorrectly:",
+                  "         - Easy  game: -40 points",
+                  "         - Hard  game: -90 points",
+                  "         - Mixed game: -50 points",
                   "    - With these points you can redeem rewards which can "
                   "be viewed through the game rewards page",
                   "    - You can access your past scores through the menu "
