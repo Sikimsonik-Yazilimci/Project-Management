@@ -6,14 +6,10 @@ import random
 
 menu_options = ['1', '2', '3', '4', '5']  # expected inputs in menus
 
-game_choice = ["Short Game (10 Q)",
-               "Long  Game (20 Q)"]
-
 points = 0
 
 # dictionaries storing the data from the games in the following format:
-# {game #: [{# of correct answers: # of questions},
-#           total game duration, duration/question]}
+# {game #: [{# of correct answers: # of questions}, total game duration, duration/question]}
 easy_game_record = {}
 hard_game_record = {}
 mixed_game_record = {}
@@ -175,6 +171,70 @@ def rewards():
             print("- ⛔️ Sorry, that is not a valid choice.\n")
 
 
+def choose_game_length_menu():
+    """
+    Displays the "choose game length menu"
+    Returns the choice inputted
+    """
+    print("-" * 20,
+          "\n Choose game length")
+    print("-" * 20)
+
+    game_choice = ["Short Game (10 Q)",
+                   "Long  Game (20 Q)"]
+
+    game_length_menu_options = ['1', '2']
+
+    # For loop prints the menu options by iterating through the game_choice list
+    for i in range(len(game_choice)):
+        print(game_length_menu_options[i] + ": " + game_choice[i])
+    print("-" * 20)
+
+    game_length_input = str(input("> Enter a choice: ")).strip()
+    # While loop gives an error message if input is invalid
+    while game_length_input not in game_length_menu_options:
+
+        print("- ⛔️ Sorry, that is not a valid choice.\n")
+        game_length_input = str(input("> Enter a choice: ")).strip()
+
+    return game_length_input
+
+
+def play_again_menu():
+    """
+    Displays the menu asking user if they want to play again or want to
+    head back to main menu. Navigates the user accordingly
+    """
+    play_again_menu_items = ["Play again",
+                             "Back to menu"]
+    print()
+    print("-" * 20)
+
+    # for loop prints the menu asking if the user wants to play again
+    # or wants to head back to main menu
+    for i in range(len(play_again_menu_items)):
+        print(menu_options[i] + ": " + play_again_menu_items[i])
+    print("-" * 20)
+
+    play_again_menu_input = str(input("> Enter a choice: ")).strip()
+    # While loop takes user to the menu page they want to go to
+    # and gives an error message is input is invalid
+    while play_again_menu_input != '1' or '2':
+
+        # if input is not valid, then prints a message
+        print("- ⛔️ Sorry, that is not a valid choice.\n")
+        time.sleep(1)
+        play_again_menu_input = str(input("> Enter a choice: ")).strip()
+
+    # if input is 1, then go to the play_game menu
+    if play_again_menu_input == '1':
+        play_game()
+
+    # if input is 2, then go to the main menu
+    elif play_again_menu_input == '2':
+        menu()
+
+
 def play_game():
     """
     Displays the play game menu
@@ -220,6 +280,9 @@ def play_game():
             menu()
 
         elif play_game_input == '5':
+            time.sleep(0.25)
+            print("\nThanks for playing!\n")
+            time.sleep(1)
             exit()
 
         # if input is not valid, then prints a message
@@ -238,129 +301,115 @@ def easy_game():
     global easy_game_count
     easy_game_count += 1
 
-    print()
-    print("-" * 20,
-          "\n  Easy game length")
-    print("-" * 20)
+    game_length_input = choose_game_length_menu()
 
-    # For loop prints the menu options by iterating through the game_choice list
-    for i in range(len(game_choice)):
-        print(menu_options[i] + ": " + game_choice[i])
-    print("-" * 20)
+    easy_game_record[easy_game_count] = []
 
-    easy_game_input = 0
-    # While loop takes user to the game they want to play,
-    # and gives an error message if input is invalid
-    while easy_game_input not in menu_options:
-        easy_game_input = str(input("> Enter a choice: ")).strip()
+    correct_answer_count = 0
+    # if choice of input is 1, then execute the short game (10 questions)
+    if game_length_input == '1':
+        space(10000)
+        # for loop printing a countdown for game beginning
+        for i in range(3):
+            print("\rStart in {}".format(3-i), end="")
+            time.sleep(1)
 
-        easy_game_record[easy_game_count] = []
+        start_time = time.time()
 
-        correct_answer_count = 0
-        # if choice of input is 1, then execute the short game (10 questions)
-        if easy_game_input == '1':
-            space(10000)
-            # for loop printing a countdown for game beginning
-            for i in range(3):
-                print("\rStart in {}".format(3-i), end="")
-                time.sleep(1)
+        question_no = 0
+        # while loop asks the user multiplication questions 10 times
+        while question_no < SHORT_GAME:
+            question_no += 1
+            space(100)
 
-            start_time = time.time()
+            # getting the random numbers to multiply
+            number_1 = random.randint(1, 5)
+            number_2 = random.randint(1, 5)
 
-            question_no = 0
-            # while loop asks the user multiplication questions 10 times
-            while question_no < SHORT_GAME:
-                question_no += 1
-                space(100)
+            # printing question and calculating answer
+            print("Question {}.            Points: {}\n".format(question_no, points))
+            question = str(input(" " * 12 + str(number_1) + " * " +
+                                 str(number_2) + " = ").strip())
+            answer = str(number_1 * number_2)
 
-                # getting the random numbers to multiply
-                number_1 = random.randint(1, 5)
-                number_2 = random.randint(1, 5)
+            # if the input number is correct, then adds 1
+            # to correct_answer_count and +50 points
+            if question == answer:
+                correct_answer_count += 1
+                points += 50
 
-                # printing question and calculating answer
-                print("Question {}.            Points: {}\n".format(question_no, points))
-                question = str(input(" " * 12 + str(number_1) + " * " +
-                                     str(number_2) + " = ").strip())
-                answer = str(number_1 * number_2)
+            # if input number is wrong, then adds 1 to each multiplied
+            # number's value in the incorrect_answer_count dictionary
+            else:
+                incorrect_answer_count[number_1] += 1
+                incorrect_answer_count[number_2] += 1
 
-                # if the input number is correct, then adds 1
-                # to correct_answer_count and +50 points
-                if question == answer:
-                    correct_answer_count += 1
-                    points += 50
+        # calculating the time it took to answer all questions,
+        # and the time taken per question
+        end_time = time.time()
+        duration = round(end_time - start_time, 2)
+        average_answer_time = round(duration / SHORT_GAME, 2)
 
-                # if input number is wrong, then adds 1 to each multiplied
-                # number's value in the incorrect_answer_count dictionary
-                else:
-                    incorrect_answer_count[number_1] += 1
-                    incorrect_answer_count[number_2] += 1
+        # adding game data to the easy_game_record dictionary in the following format:
+        # {game #: [{number of correct answers: number of questions}, total game duration, duration/question]}
+        easy_game_record[easy_game_count].append({correct_answer_count: SHORT_GAME})
+        easy_game_record[easy_game_count].append(duration)
+        easy_game_record[easy_game_count].append(average_answer_time)
 
-            # calculating the time it took to answer all questions,
-            # and the time taken per question
-            end_time = time.time()
-            duration = round(end_time - start_time, 2)
-            average_answer_time = round(duration / SHORT_GAME, 2)
+    # if choice of input is 2, then execute the long game (20 questions)
+    elif game_length_input == '2':
+        space(10000)
+        # for loop printing a countdown for game beginning
+        for i in range(3):
+            print("\rStart in {}".format(3-i), end="")
+            time.sleep(1)
 
-            # adding game data to the easy_game_record dictionary in the following format:
-            # {game #: [{number of correct answers: number of questions}, total game duration, duration/question]}
-            easy_game_record[easy_game_count].append({correct_answer_count: SHORT_GAME})
-            easy_game_record[easy_game_count].append(duration)
-            easy_game_record[easy_game_count].append(average_answer_time)
+        start_time = time.time()
 
-        # if choice of input is 2, then execute the long game (20 questions)
-        elif easy_game_input == '2':
-            space(10000)
-            # for loop printing a countdown for game beginning
-            for i in range(3):
-                print("\rStart in {}".format(3-i), end="")
-                time.sleep(1)
+        question_no = 0
+        # while loop asks the user multiplication questions 20 times
+        while question_no < LONG_GAME:
+            question_no += 1
+            space(100)
 
-            start_time = time.time()
+            # getting the random numbers to multiply
+            number_1 = random.randint(1, 5)
+            number_2 = random.randint(1, 5)
 
-            question_no = 0
-            # while loop asks the user multiplication questions 20 times
-            while question_no < LONG_GAME:
-                question_no += 1
-                space(100)
+            # printing question and calculating answer
+            print("Question {}.            Points: {}\n".format(question_no, points))
 
-                # getting the random numbers to multiply
-                number_1 = random.randint(1, 5)
-                number_2 = random.randint(1, 5)
+            question = str(input(" " * 12 + str(number_1) + " * " +
+                                 str(number_2) + " = ").strip())
+            answer = str(number_1 * number_2)
 
-                # printing question and calculating answer
-                print("Question {}.            Points: {}\n".format(question_no, points))
+            # if the input number is correct, then adds 1
+            # to correct_answer_count and +50 points
+            if question == answer:
+                correct_answer_count += 1
+                points += 50
 
-                question = str(input(" " * 12 + str(number_1) + " * " +
-                                     str(number_2) + " = ").strip())
-                answer = str(number_1 * number_2)
+            # if input number is wrong, then adds 1 to each multiplied
+            # number's value in the incorrect_answer_count dictionary
+            else:
+                incorrect_answer_count[number_1] += 1
+                incorrect_answer_count[number_2] += 1
 
-                # if the input number is correct, then adds 1
-                # to correct_answer_count and +50 points
-                if question == answer:
-                    correct_answer_count += 1
-                    points += 50
+        # calculating the time it took to answer all questions,
+        # and the time taken per question
+        end_time = time.time()
+        duration = round(end_time - start_time, 2)
+        average_answer_time = round(duration / LONG_GAME, 2)
 
-                # if input number is wrong, then adds 1 to each multiplied
-                # number's value in the incorrect_answer_count dictionary
-                else:
-                    incorrect_answer_count[number_1] += 1
-                    incorrect_answer_count[number_2] += 1
+        # adding game data to the easy_game_record dictionary in the following format:
+        # {game number: [{number of correct answers: number of questions}, total game duration, duration/question]}
+        easy_game_record[easy_game_count].append({correct_answer_count: LONG_GAME})
+        easy_game_record[easy_game_count].append(duration)
+        easy_game_record[easy_game_count].append(average_answer_time)
 
-            # calculating the time it took to answer all questions,
-            # and the time taken per question
-            end_time = time.time()
-            duration = round(end_time - start_time, 2)
-            average_answer_time = round(duration / LONG_GAME, 2)
-
-            # adding game data to the easy_game_record dictionary in the following format:
-            # {game number: [{number of correct answers: number of questions}, total game duration, duration/question]}
-            easy_game_record[easy_game_count].append({correct_answer_count: LONG_GAME})
-            easy_game_record[easy_game_count].append(duration)
-            easy_game_record[easy_game_count].append(average_answer_time)
-
-        # if input is not valid, then prints a message
-        else:
-            print("- ⛔️ Sorry, that is not a valid choice.\n")
+    # if input is not valid, then prints a message
+    else:
+        print("- ⛔️ Sorry, that is not a valid choice.\n")
 
     # printing the game score
     space(10000)
@@ -371,33 +420,7 @@ def easy_game():
     print("Total points: {}".format(points))
     time.sleep(1)
 
-    easy_game_menu = ["Play again",
-                      "Back to menu"]
-    print()
-    print("-" * 20)
-
-    # for loop prints the second easy_game_menu
-    for i in range(len(easy_game_menu)):
-        print(menu_options[i] + ": " + easy_game_menu[i])
-    print("-" * 20)
-
-    easy_game_input_2 = 0
-    # While loop takes user to the menu page they want to go to
-    # and gives an error message is input is invalid
-    while easy_game_input_2 not in menu_options:
-        easy_game_input_2 = str(input("> Enter a choice: ")).strip()
-
-        # if input is 1, then go to the play_game menu
-        if easy_game_input_2 == '1':
-            play_game()
-
-        # if input is 2, then go to the main menu
-        elif easy_game_input_2 == '2':
-            menu()
-
-        # if input is not valid, then prints a message
-        else:
-            print("- ⛔️ Sorry, that is not a valid choice.\n")
+    play_again_menu()
 
 
 def hard_game():
@@ -411,128 +434,114 @@ def hard_game():
     global hard_game_count
     hard_game_count += 1
 
-    print()
-    print("-" * 20,
-          "\n  Hard game length")
-    print("-" * 20)
+    game_length_input = choose_game_length_menu()
 
-    # For loop prints the menu options by iterating through the game_choice list
-    for i in range(len(game_choice)):
-        print(menu_options[i] + ": " + game_choice[i])
-    print("-" * 20)
+    hard_game_record[hard_game_count] = []
 
-    hard_game_input = 0
-    # While loop takes user to the game they want to play,
-    # and gives an error message if input is invalid
-    while hard_game_input not in menu_options:
-        hard_game_input = str(input("> Enter a choice: ")).strip()
+    correct_answer_count = 0
+    # if choice of input is 1, then execute the short game (10 questions)
+    if game_length_input == '1':
+        space(10000)
+        # for loop printing a countdown for game beginning
+        for i in range(3):
+            print("\rStart in {}".format(3-i), end="")
+            time.sleep(1)
 
-        hard_game_record[hard_game_count] = []
+        start_time = time.time()
 
-        correct_answer_count = 0
-        # if choice of input is 1, then execute the short game (10 questions)
-        if hard_game_input == '1':
-            space(10000)
-            # for loop printing a countdown for game beginning
-            for i in range(3):
-                print("\rStart in {}".format(3-i), end="")
-                time.sleep(1)
+        question_no = 0
+        # while loop asks the user multiplication questions 10 times
+        while question_no < SHORT_GAME:
+            question_no += 1
+            space(100)
 
-            start_time = time.time()
+            # getting the random numbers to multiply
+            number_1 = random.randint(5, 10)
+            number_2 = random.randint(5, 10)
 
-            question_no = 0
-            # while loop asks the user multiplication questions 10 times
-            while question_no < SHORT_GAME:
-                question_no += 1
-                space(100)
+            # printing question and calculating answer
+            print("Question {}.            Points: {}\n".format(question_no, points))
+            question = str(input(" " * 12 + str(number_1) + " * " +
+                                 str(number_2) + " = ").strip())
+            answer = str(number_1 * number_2)
 
-                # getting the random numbers to multiply
-                number_1 = random.randint(5, 10)
-                number_2 = random.randint(5, 10)
+            # if the input number is correct, then adds 1
+            # to correct_answer_count and +100 points
+            if question == answer:
+                correct_answer_count += 1
+                points += 100
 
-                # printing question and calculating answer
-                print("Question {}.            Points: {}\n".format(question_no, points))
-                question = str(input(" " * 12 + str(number_1) + " * " +
-                                     str(number_2) + " = ").strip())
-                answer = str(number_1 * number_2)
+            # if input number is wrong, then adds 1 to each multiplied
+            # number's value in the incorrect_answer_count dictionary
+            else:
+                incorrect_answer_count[number_1] += 1
+                incorrect_answer_count[number_2] += 1
 
-                # if the input number is correct, then adds 1
-                # to correct_answer_count and +100 points
-                if question == answer:
-                    correct_answer_count += 1
-                    points += 100
+        # calculating the time it took to answer all questions,
+        # and the time taken per question
+        end_time = time.time()
+        duration = round(end_time - start_time, 2)
+        average_answer_time = round(duration / SHORT_GAME, 2)
 
-                # if input number is wrong, then adds 1 to each multiplied
-                # number's value in the incorrect_answer_count dictionary
-                else:
-                    incorrect_answer_count[number_1] += 1
-                    incorrect_answer_count[number_2] += 1
+        # adding game data to the hard_game_record dictionary in the following format:
+        # {game #: [{number of correct answers: number of questions}, total game duration, duration/question]}
+        hard_game_record[hard_game_count].append({correct_answer_count: SHORT_GAME})
+        hard_game_record[hard_game_count].append(duration)
+        hard_game_record[hard_game_count].append(average_answer_time)
 
-            # calculating the time it took to answer all questions,
-            # and the time taken per question
-            end_time = time.time()
-            duration = round(end_time - start_time, 2)
-            average_answer_time = round(duration / SHORT_GAME, 2)
+    # if choice of input is 2, then execute the long game (20 questions)
+    elif game_length_input == '2':
+        space(10000)
+        # for loop printing a countdown for game beginning
+        for i in range(3):
+            print("\rStart in {}".format(3-i), end="")
+            time.sleep(1)
 
-            # adding game data to the hard_game_record dictionary in the following format:
-            # {game #: [{number of correct answers: number of questions}, total game duration, duration/question]}
-            hard_game_record[hard_game_count].append({correct_answer_count: SHORT_GAME})
-            hard_game_record[hard_game_count].append(duration)
-            hard_game_record[hard_game_count].append(average_answer_time)
+        start_time = time.time()
 
-        # if choice of input is 2, then execute the long game (20 questions)
-        elif hard_game_input == '2':
-            space(10000)
-            # for loop printing a countdown for game beginning
-            for i in range(3):
-                print("\rStart in {}".format(3-i), end="")
-                time.sleep(1)
+        question_no = 0
+        # while loop asks the user multiplication questions 20 times
+        while question_no < LONG_GAME:
+            question_no += 1
+            space(100)
 
-            start_time = time.time()
+            # getting the random numbers to multiply
+            number_1 = random.randint(5, 10)
+            number_2 = random.randint(5, 10)
 
-            question_no = 0
-            # while loop asks the user multiplication questions 20 times
-            while question_no < LONG_GAME:
-                question_no += 1
-                space(100)
+            # printing question and calculating answer
+            print("Question {}.            Points: {}\n".format(question_no, points))
+            question = str(input(" " * 12 + str(number_1) + " * " +
+                                 str(number_2) + " = ").strip())
+            answer = str(number_1 * number_2)
 
-                # getting the random numbers to multiply
-                number_1 = random.randint(5, 10)
-                number_2 = random.randint(5, 10)
+            # if the input number is correct, then adds 1
+            # to correct_answer_count and +100 points
+            if question == answer:
+                correct_answer_count += 1
+                points += 100
 
-                # printing question and calculating answer
-                print("Question {}.            Points: {}\n".format(question_no, points))
-                question = str(input(" " * 12 + str(number_1) + " * " +
-                                     str(number_2) + " = ").strip())
-                answer = str(number_1 * number_2)
+            # if input number is wrong, then adds 1 to each multiplied
+            # number's value in the incorrect_answer_count dictionary
+            else:
+                incorrect_answer_count[number_1] += 1
+                incorrect_answer_count[number_2] += 1
 
-                # if the input number is correct, then adds 1
-                # to correct_answer_count and +100 points
-                if question == answer:
-                    correct_answer_count += 1
-                    points += 100
+        # calculating the time it took to answer all questions,
+        # and the time taken per question
+        end_time = time.time()
+        duration = round(end_time - start_time, 2)
+        average_answer_time = round(duration / LONG_GAME, 2)
 
-                # if input number is wrong, then adds 1 to each multiplied
-                # number's value in the incorrect_answer_count dictionary
-                else:
-                    incorrect_answer_count[number_1] += 1
-                    incorrect_answer_count[number_2] += 1
+        # adding game data to the hard_game_record dictionary in the following format:
+        # {game number: [{number of correct answers: number of questions}, total game duration, duration/question]}
+        hard_game_record[hard_game_count].append({correct_answer_count: LONG_GAME})
+        easy_game_record[hard_game_count].append(duration)
+        easy_game_record[hard_game_count].append(average_answer_time)
 
-            # calculating the time it took to answer all questions,
-            # and the time taken per question
-            end_time = time.time()
-            duration = round(end_time - start_time, 2)
-            average_answer_time = round(duration / LONG_GAME, 2)
-
-            # adding game data to the hard_game_record dictionary in the following format:
-            # {game number: [{number of correct answers: number of questions}, total game duration, duration/question]}
-            hard_game_record[hard_game_count].append({correct_answer_count: LONG_GAME})
-            easy_game_record[hard_game_count].append(duration)
-            easy_game_record[hard_game_count].append(average_answer_time)
-
-        # if input is not valid, then prints a message
-        else:
-            print("- ⛔️ Sorry, that is not a valid choice.\n")
+    # if input is not valid, then prints a message
+    else:
+        print("- ⛔️ Sorry, that is not a valid choice.\n")
 
     # printing the game score
     space(10000)
@@ -543,33 +552,7 @@ def hard_game():
     print("Total points: {}".format(points))
     time.sleep(1)
 
-    hard_game_menu = ["Play again",
-                      "Back to menu"]
-    print()
-    print("-" * 20)
-
-    # for loop prints the second hard_game_menu
-    for i in range(len(hard_game_menu)):
-        print(menu_options[i] + ": " + hard_game_menu[i])
-    print("-" * 20)
-
-    hard_game_input_2 = 0
-    # While loop takes user to the menu page they want to go to
-    # and gives an error message is input is invalid
-    while hard_game_input_2 not in menu_options:
-        hard_game_input_2 = str(input("> Enter a choice: ")).strip()
-
-        # if input is 1, then go to the play_game menu
-        if hard_game_input_2 == '1':
-            play_game()
-
-        # if input is 2, then go to the main menu
-        elif hard_game_input_2 == '2':
-            menu()
-
-        # if input is not valid, then prints a message
-        else:
-            print("- ⛔️ Sorry, that is not a valid choice.\n")
+    play_again_menu()
 
 
 def mixed_game():
@@ -583,128 +566,114 @@ def mixed_game():
     global mixed_game_count
     mixed_game_count += 1
 
-    print()
-    print("-" * 20,
-          "\n Mixed game length")
-    print("-" * 20)
+    game_length_input = choose_game_length_menu()
 
-    # For loop prints the menu options by iterating through the game_choice list
-    for i in range(len(game_choice)):
-        print(menu_options[i] + ": " + game_choice[i])
-    print("-" * 20)
+    mixed_game_record[mixed_game_count] = []
 
-    mixed_game_input = 0
-    # While loop takes user to the game they want to play,
-    # and gives an error message if input is invalid
-    while mixed_game_input not in menu_options:
-        mixed_game_input = str(input("> Enter a choice: ")).strip()
+    correct_answer_count = 0
+    # if choice of input is 1, then execute the short game (10 questions)
+    if game_length_input == '1':
+        space(10000)
+        # for loop printing a countdown for game beginning
+        for i in range(3):
+            print("\rStart in {}".format(3 - i), end="")
+            time.sleep(1)
 
-        mixed_game_record[mixed_game_count] = []
+        start_time = time.time()
 
-        correct_answer_count = 0
-        # if choice of input is 1, then execute the short game (10 questions)
-        if mixed_game_input == '1':
-            space(10000)
-            # for loop printing a countdown for game beginning
-            for i in range(3):
-                print("\rStart in {}".format(3 - i), end="")
-                time.sleep(1)
+        question_no = 0
+        # while loop asks the user multiplication questions 10 times
+        while question_no < SHORT_GAME:
+            question_no += 1
+            space(100)
 
-            start_time = time.time()
+            # getting the random numbers to multiply
+            number_1 = random.randint(1, 10)
+            number_2 = random.randint(1, 10)
 
-            question_no = 0
-            # while loop asks the user multiplication questions 10 times
-            while question_no < SHORT_GAME:
-                question_no += 1
-                space(100)
+            # printing question and calculating answer
+            print("Question {}.            Points: {}\n".format(question_no, points))
+            question = str(input(" " * 12 + str(number_1) + " * " +
+                                 str(number_2) + " = ").strip())
+            answer = str(number_1 * number_2)
 
-                # getting the random numbers to multiply
-                number_1 = random.randint(1, 10)
-                number_2 = random.randint(1, 10)
+            # if the input number is correct, then adds 1
+            # to correct_answer_count and +75 points
+            if question == answer:
+                correct_answer_count += 1
+                points += 75
 
-                # printing question and calculating answer
-                print("Question {}.            Points: {}\n".format(question_no, points))
-                question = str(input(" " * 12 + str(number_1) + " * " +
-                                     str(number_2) + " = ").strip())
-                answer = str(number_1 * number_2)
+            # if input number is wrong, then adds 1 to each multiplied
+            # number's value in the incorrect_answer_count dictionary
+            else:
+                incorrect_answer_count[number_1] += 1
+                incorrect_answer_count[number_2] += 1
 
-                # if the input number is correct, then adds 1
-                # to correct_answer_count and +75 points
-                if question == answer:
-                    correct_answer_count += 1
-                    points += 75
+        # calculating the time it took to answer all questions,
+        # and the time taken per question
+        end_time = time.time()
+        duration = round(end_time - start_time, 2)
+        average_answer_time = round(duration / SHORT_GAME, 2)
 
-                # if input number is wrong, then adds 1 to each multiplied
-                # number's value in the incorrect_answer_count dictionary
-                else:
-                    incorrect_answer_count[number_1] += 1
-                    incorrect_answer_count[number_2] += 1
+        # adding game data to the mixed_game_record dictionary in the following format:
+        # {game #: [{number of correct answers: number of questions}, total game duration, duration/question]}
+        mixed_game_record[mixed_game_count].append({correct_answer_count: SHORT_GAME})
+        mixed_game_record[mixed_game_count].append(duration)
+        mixed_game_record[mixed_game_count].append(average_answer_time)
 
-            # calculating the time it took to answer all questions,
-            # and the time taken per question
-            end_time = time.time()
-            duration = round(end_time - start_time, 2)
-            average_answer_time = round(duration / SHORT_GAME, 2)
+    # if choice of input is 2, then execute the long game (20 questions)
+    elif game_length_input == '2':
+        space(10000)
+        # for loop printing a countdown for game beginning
+        for i in range(3):
+            print("\rStart in {}".format(3 - i), end="")
+            time.sleep(1)
 
-            # adding game data to the mixed_game_record dictionary in the following format:
-            # {game #: [{number of correct answers: number of questions}, total game duration, duration/question]}
-            mixed_game_record[mixed_game_count].append({correct_answer_count: SHORT_GAME})
-            mixed_game_record[mixed_game_count].append(duration)
-            mixed_game_record[mixed_game_count].append(average_answer_time)
+        start_time = time.time()
 
-        # if choice of input is 2, then execute the long game (20 questions)
-        elif mixed_game_input == '2':
-            space(10000)
-            # for loop printing a countdown for game beginning
-            for i in range(3):
-                print("\rStart in {}".format(3 - i), end="")
-                time.sleep(1)
+        question_no = 0
+        # while loop asks the user multiplication questions 20 times
+        while question_no < LONG_GAME:
+            question_no += 1
+            space(100)
 
-            start_time = time.time()
+            # getting the random numbers to multiply
+            number_1 = random.randint(1, 10)
+            number_2 = random.randint(1, 10)
 
-            question_no = 0
-            # while loop asks the user multiplication questions 20 times
-            while question_no < LONG_GAME:
-                question_no += 1
-                space(100)
+            # printing question and calculating answer
+            print("Question {}.            Points: {}\n".format(question_no, points))
+            question = str(input(" " * 12 + str(number_1) + " * " +
+                                 str(number_2) + " = ").strip())
+            answer = str(number_1 * number_2)
 
-                # getting the random numbers to multiply
-                number_1 = random.randint(1, 10)
-                number_2 = random.randint(1, 10)
+            # if the input number is correct, then adds 1
+            # to correct_answer_count and +75 points
+            if question == answer:
+                correct_answer_count += 1
+                points += 75
 
-                # printing question and calculating answer
-                print("Question {}.            Points: {}\n".format(question_no, points))
-                question = str(input(" " * 12 + str(number_1) + " * " +
-                                     str(number_2) + " = ").strip())
-                answer = str(number_1 * number_2)
+            # if input number is wrong, then adds 1 to each multiplied
+            # number's value in the incorrect_answer_count dictionary
+            else:
+                incorrect_answer_count[number_1] += 1
+                incorrect_answer_count[number_2] += 1
 
-                # if the input number is correct, then adds 1
-                # to correct_answer_count and +75 points
-                if question == answer:
-                    correct_answer_count += 1
-                    points += 75
+        # calculating the time it took to answer all questions,
+        # and the time taken per question
+        end_time = time.time()
+        duration = round(end_time - start_time, 2)
+        average_answer_time = round(duration / LONG_GAME, 2)
 
-                # if input number is wrong, then adds 1 to each multiplied
-                # number's value in the incorrect_answer_count dictionary
-                else:
-                    incorrect_answer_count[number_1] += 1
-                    incorrect_answer_count[number_2] += 1
+        # adding game data to the mixed_game_record dictionary in the following format:
+        # {game number: [{number of correct answers: number of questions}, total game duration, duration/question]}
+        mixed_game_record[mixed_game_count].append({correct_answer_count: LONG_GAME})
+        mixed_game_record[mixed_game_count].append(duration)
+        mixed_game_record[mixed_game_count].append(average_answer_time)
 
-            # calculating the time it took to answer all questions,
-            # and the time taken per question
-            end_time = time.time()
-            duration = round(end_time - start_time, 2)
-            average_answer_time = round(duration / LONG_GAME, 2)
-
-            # adding game data to the mixed_game_record dictionary in the following format:
-            # {game number: [{number of correct answers: number of questions}, total game duration, duration/question]}
-            mixed_game_record[mixed_game_count].append({correct_answer_count: LONG_GAME})
-            mixed_game_record[mixed_game_count].append(duration)
-            mixed_game_record[mixed_game_count].append(average_answer_time)
-
-        # if input is not valid, then prints a message
-        else:
-            print("- ⛔️ Sorry, that is not a valid choice.\n")
+    # if input is not valid, then prints a message
+    else:
+        print("- ⛔️ Sorry, that is not a valid choice.\n")
 
     # printing the game score
     space(10000)
@@ -715,38 +684,19 @@ def mixed_game():
     print("Total points: {}".format(points))
     time.sleep(1)
 
-    mixed_game_menu = ["Play again",
-                       "Back to menu"]
-    print()
-    print("-" * 20)
-
-    # for loop prints the second mixed_game_menu
-    for i in range(len(mixed_game_menu)):
-        print(menu_options[i] + ": " + mixed_game_menu[i])
-    print("-" * 20)
-
-    mixed_game_input_2 = 0
-    # While loop takes user to the menu page they want to go to
-    # and gives an error message is input is invalid
-    while mixed_game_input_2 not in menu_options:
-        mixed_game_input_2 = str(input("> Enter a choice: ")).strip()
-
-        # if input is 1, then go to the play_game menu
-        if mixed_game_input_2 == '1':
-            play_game()
-
-        # if input is 2, then go to the main menu
-        elif mixed_game_input_2 == '2':
-            menu()
-
-        # if input is not valid, then prints a message
-        else:
-            print("- ⛔️ Sorry, that is not a valid choice.\n")
+    play_again_menu()
 
 
 def teachers_menu():
     """
     Displays the teacher's menu
+    """
+
+    """    
+    sorted_footballers_by_goals = sorted(footballers_goals.items(), key=lambda x:x[1], reverse=True)
+converted_dict = dict(sorted_footballers_by_goals)
+
+    https://www.freecodecamp.org/news/sort-dictionary-by-value-in-python/
     """
     print()
 
@@ -783,6 +733,7 @@ while menu_input != menu_options[-1]:
     # if input is not valid, then prints a message
     else:
         print("- ⛔️ Sorry, that is not a valid choice.\n")
+        time.sleep(1)
 
     # calls menu function again as long as the while loop continues
     menu()
