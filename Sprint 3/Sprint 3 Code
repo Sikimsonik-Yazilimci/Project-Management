@@ -279,9 +279,11 @@ def easy_game():
 
             # if input number is wrong, then adds 1 to each multiplied
             # number's value in the incorrect_answer_count dictionary
+            # and deducts 40 points
             else:
                 incorrect_answer_count[number_1] += 1
                 incorrect_answer_count[number_2] += 1
+                points -= 40
 
         # calculating the time it took to answer all questions,
         # and the time taken per question
@@ -330,9 +332,11 @@ def easy_game():
 
             # if input number is wrong, then adds 1 to each multiplied
             # number's value in the incorrect_answer_count dictionary
+            # and deducts 40 points
             else:
                 incorrect_answer_count[number_1] += 1
                 incorrect_answer_count[number_2] += 1
+                points -= 40
 
         # calculating the time it took to answer all questions,
         # and the time taken per question
@@ -413,9 +417,11 @@ def hard_game():
 
             # if input number is wrong, then adds 1 to each multiplied
             # number's value in the incorrect_answer_count dictionary
+            # and deducts 90 points
             else:
                 incorrect_answer_count[number_1] += 1
                 incorrect_answer_count[number_2] += 1
+                points -= 90
 
         # calculating the time it took to answer all questions,
         # and the time taken per question
@@ -463,9 +469,11 @@ def hard_game():
 
             # if input number is wrong, then adds 1 to each multiplied
             # number's value in the incorrect_answer_count dictionary
+            # and deducts 90 points
             else:
                 incorrect_answer_count[number_1] += 1
                 incorrect_answer_count[number_2] += 1
+                points -= 90
 
         # calculating the time it took to answer all questions,
         # and the time taken per question
@@ -547,9 +555,11 @@ def mixed_game():
 
             # if input number is wrong, then adds 1 to each multiplied
             # number's value in the incorrect_answer_count dictionary
+            # and deducts 50 points
             else:
                 incorrect_answer_count[number_1] += 1
                 incorrect_answer_count[number_2] += 1
+                points -= 50
 
         # calculating the time it took to answer all questions,
         # and the time taken per question
@@ -597,9 +607,11 @@ def mixed_game():
 
             # if input number is wrong, then adds 1 to each multiplied
             # number's value in the incorrect_answer_count dictionary
+            # and deducts 50 points
             else:
                 incorrect_answer_count[number_1] += 1
                 incorrect_answer_count[number_2] += 1
+                points -= 50
 
         # calculating the time it took to answer all questions,
         # and the time taken per question
